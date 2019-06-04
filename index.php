@@ -1,6 +1,6 @@
 <?php
 // This is our starting point. Change this to whatever URL you want.
-$start = "http://localhost/Projects/BiasedSearchEngine/index.php";
+$start = "http://localhost/se/test.html";
 
 $pdo = new PDO ('mysql:host=127.0.0.1;dbname=biasedsearchengine', 'root', '');
 
@@ -36,13 +36,12 @@ function get_details($url) {
 			$keywords = $meta->getAttribute("content");
 	}
 	// Return our JSON string containing the title, description, keywords and URL.
-	return '{ "Title": "'.str_replace("\n", "", $title).'", "Description": "'.str_replace("\n", "", $description).'", "Keywords": "'.str_replace("\n", "", $keywords).'", "URL": "'.$url.'"}';
+	return '{ "Title": "'.str_replace("\n", "", $title).'", "Description": "'.str_replace("\n", "", $description).'", "Keywords": "'.str_replace("\n", "", $keywords).'", "URL": "'.$url.'"},';
 }
 function follow_links($url) {
 	// Give our function access to our crawl arrays.
 	global $already_crawled;
 	global $crawling;
-	global $pdo;
 	// The array that we pass to stream_context_create() to modify our User Agent.
 	$options = array('http'=>array('method'=>"GET", 'headers'=>"User-Agent: howBot/0.1\n"));
 	// Create the stream context.
@@ -79,15 +78,6 @@ function follow_links($url) {
 				$crawling[] = $l;
 				// Output the page title, descriptions, keywords and URL. This output is
 				// piped off to an external file using the command line.
-
-				$details = json_decode(get_details($l));
-				
-				$details->URL;
-
-				$rows = $pdo->query("SELECT * FROM `index` WHERE url_hash='".md5($details->URL)."'");
-				$rows = $rows->fetchColumn();
-				echo $rows."\n";
-
 				echo get_details($l)."\n";
 		}
 	}
@@ -100,4 +90,6 @@ function follow_links($url) {
 	}
 }
 // Begin the crawling process by crawling the starting link first.
-follow_links($start);
+//follow_links($start);
+
+$pdo->query("SELECT * FROM index");
