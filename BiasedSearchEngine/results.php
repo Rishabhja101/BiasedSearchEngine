@@ -8,13 +8,15 @@
         $results = array();
         $occurrences = array();
         while($i = mysqli_fetch_array($hello)){
-            array_push($results, '<a href="'.$i['url'].'">'.$i['title'].'</a><p>'. $i['url']. '<p>'. $i['description'].'<p><a>-------------------------------------------------------------------------------------</a><p>');
+            array_push($results, '<a href="'.$i['url'].'">'.$i['title'].'</a><p>'. $i['url']. '<p>'. $i['description'].'<p>');
             array_push($occurrences, $i['activity']);
         }
         $results = sorter($results, $occurrences);
+        $occurrences = sorter2($results, $occurrences);
         for ($n = 0; $n < sizeof($results); $n++){
             echo $results[$n];
             echo $occurrences[$n];
+            echo "<p><a>-------------------------------------------------------------------------------------</a><p>";
         }
     }
     else {
@@ -31,8 +33,31 @@
                     array_splice($sortedArrayActivity, $n, 0, $array2[$i]);
                     $n = sizeof($sortedArray);
                 }
+                else if ($n == sizeof($sortedArray) - 1){
+                    array_splice($sortedArray, $n, 0, $array1[$i]);
+                    array_splice($sortedArrayActivity, $n, 0, $array2[$i]);
+                }
             }    
         }
         return $sortedArray;
+    }
+
+    function sorter2($array1, $array2) {
+        $sortedArray = array($array1[0]);
+        $sortedArrayActivity = array($array2[0]);
+        for ($i = 1; $i < sizeof($array1); $i++){
+            for ($n = 0; $n < sizeof($sortedArray); $n++){
+                if ($sortedArrayActivity[$n] < $array2[$i]){
+                    array_splice($sortedArray, $n, 0, $array1[$i]);
+                    array_splice($sortedArrayActivity, $n, 0, $array2[$i]);
+                    $n = sizeof($sortedArray);
+                }
+                else if ($n == sizeof($sortedArray) - 1){
+                    array_splice($sortedArray, $n, 0, $array1[$i]);
+                    array_splice($sortedArrayActivity, $n, 0, $array2[$i]);
+                }
+            }    
+        }
+        return $sortedArrayActivity;
     }
 ?>
