@@ -1,5 +1,6 @@
 <?php
-    mysql_connect("localhost", "root", "root") or die(mysql_error());
-    mysql_select_db("sandbox_search") or die(mysql_error());
+    $con = mysqli_connect("localhost", "root", "") or die(mysqli_error());
+    mysqli_select_db($con, "biasedSearchEngine") or die(mysqli_error());
 
+  
 ?>
