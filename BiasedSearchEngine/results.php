@@ -8,7 +8,7 @@
         $results = array();
         $occurrences = array();
         while($i = mysqli_fetch_array($hello)){
-            array_push($results, '<a href="'.$i['url'].'">'.$i['title'].'</a><p>'. $i['url']. '<p>'. $i['description'].'<p>');
+            array_push($results, '<a href="<?php redirect('.$i['url'].') ?>">'.$i['title'].'</a><p>'. $i['url']. '<p>'. $i['description'].'<p>');
             array_push($occurrences, $i['activity']);
         }
         $results = sorter($results, $occurrences);
@@ -21,6 +21,13 @@
     }
     else {
         echo "No results found, sorry :(";
+    }
+
+    function redirect($url, $permanent = false)
+    {
+        window.open('http://destination.com');
+        //header($url, true, $permanent ? 301 : 302);
+        exit();
     }
 
     function sorter($array1, $array2) {
