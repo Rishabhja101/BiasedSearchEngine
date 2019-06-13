@@ -11,8 +11,10 @@
             array_push($results, '<a href="<?php redirect('.$i['url'].') ?>">'.$i['title'].'</a><p>'. $i['url']. '<p>'. $i['description'].'<p>');
             array_push($occurrences, $i['activity']);
         }
-       // quickSort($occurrences, 0, sizeof($results) - 1, $results);
-        $occurrences = thing($occurrences);
+        $got = quickSort($occurrences, 0, sizeof($results) - 1, $results);
+        $occurrences = $got[0];
+        $results = $got[1];
+//        $occurrences = thing($occurrences);
 //        $results = sorter($results, $occurrences);
 //        $occurrences = sorter2($results, $occurrences);
         for ($n = 0; $n < sizeof($results); $n++){
@@ -42,10 +44,21 @@
 
     function quickSort($array, $start, $end, $array0){
         if ($start < $end){
-            $piv_pos = partition($array, $start, $end, $array0);
-            quickSort($array, $start, $piv_pos - 1, $array0);
-            quickSort($array, $piv_pos + 1, $end, $array0);
+            $got = partition($array, $start, $end, $array0);
+            $array = $got[0];
+            $array0 = $got[1];
+            $piv_pos = $got[2];
+            $got = quickSort($array, $start, $piv_pos - 1, $array0);
+            $array = $got[0];
+            $array0 = $got[1];
+            $got = quickSort($array, $piv_pos + 1, $end, $array0);
+            $array = $got[0];
+            $array0 = $got[1];
         }
+        $final = array();
+        array_push($final, $array);
+        array_push($final, $array0);
+        return $final;
     }
 
     function partition($array, $start, $end, $array0){
@@ -72,7 +85,11 @@
         $array0[$start] = $array0[$i - 1];
         $array0[$i - 1] = $temp;
 
-        return $i - 1;
+        $final = array();
+        array_push($final, $array);
+        array_push($final, $array0);
+        array_push($final, $i - 1);
+        return $final;
     }
 
     function sorter($array1, $array2) {
