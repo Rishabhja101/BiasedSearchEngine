@@ -14,7 +14,8 @@
         $got = quickSort($occurrences, 0, sizeof($results) - 1, $results);
         $occurrences = $got[0];
         $results = $got[1];
-//        $occurrences = thing($occurrences);
+        $occurrences = reverse($occurrences);
+        $results = reverse($results);
 //        $results = sorter($results, $occurrences);
 //        $occurrences = sorter2($results, $occurrences);
         for ($n = 0; $n < sizeof($results); $n++){
@@ -34,12 +35,12 @@
         exit();
     }
 
-    function thing($array){
-        $a2 = array();
+    function reverse($array){
+        $final = array();
         for ($n = 0; $n < sizeof($array); $n++){
-            array_push($a2, $array[sizeof($array) - $n - 1]);
+            array_push($final, $array[sizeof($array) - $n - 1]);
         }        
-        return $a2;
+        return $final;
     }
 
     function quickSort($array, $start, $end, $array0){
