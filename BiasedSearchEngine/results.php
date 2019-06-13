@@ -1,3 +1,21 @@
+<html>
+	<head>
+		<title>The Search Engine</title>
+	</head>
+	<body>
+        <h1 style="text-align:center">
+			BSSEARCHER
+		</h1>
+		<form method="get" action="results.php">
+			<label>What would you like to search for?</label>
+			<input type="text" name="search">
+			<button type="submit">Search</button>
+		</form>
+        <br>
+        <br>
+	</body>
+</html>
+
 <?php
     $con = mysqli_connect("localhost", "root", "") or die(mysqli_error($con));
     mysqli_select_db($con, "biasedSearchEngine") or die(mysqli_error($con));
@@ -16,11 +34,9 @@
         $results = $got[1];
         $occurrences = reverse($occurrences);
         $results = reverse($results);
-//        $results = sorter($results, $occurrences);
-//        $occurrences = sorter2($results, $occurrences);
         for ($n = 0; $n < sizeof($results); $n++){
             echo $results[$n];
-            echo $occurrences[$n];
+//            echo $occurrences[$n];
             echo "<p><a>-------------------------------------------------------------------------------------</a><p>";
         }
     }
