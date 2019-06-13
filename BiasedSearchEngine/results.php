@@ -1,15 +1,19 @@
 <html>
 	<head>
 		<title>The Search Engine</title>
+
+        <!-- Bootstrap CDN -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	</head>
-	<body>
-        <h1 style="text-align:center">
-			BSSEARCHER
+	<body class="container">
+        <h1 class="text-center display-4">
+			<a style="font-size:55px; color:blue;">B</a><a style="font-size:53px; color:red;">S</a><strong style="font-size:51px; color:grey; font-weight: 800;">S</strong><strong style="font-size:49px; color:blue; font-weight: 800;">E</strong><strong style="font-size:47px; color:green; font-weight: 800;">A</strong><strong style="font-size:47px; color:red; font-weight: 800;">R</strong><strong style="font-size:49px; color:purple; font-weight: 800;">C</strong><strong style="font-size:51px; color:brown; font-weight: 800;">H</strong><a style="font-size:53px; color:orange">E</a><a style="font-size:55px; color:green">R</a>
 		</h1>
-		<form method="get" action="results.php">
-			<label>What would you like to search for?</label>
-			<input type="text" name="search">
-			<button type="submit">Search</button>
+		<form class="form-group" method="get" action="results.php">
+            <div class="form-group col-12" style="text-align:center">
+                <input class="form-control mr-4 mb-4" type="text" name="search">
+                <button class="btn btn-lg btn-primary" style="width: 20%;" type="submit">Search</button>
+            </div>
 		</form>
         <br>
         <br>
@@ -17,6 +21,8 @@
 </html>
 
 <?php
+
+
     $con = mysqli_connect("localhost", "root", "") or die(mysqli_error($con));
     mysqli_select_db($con, "biasedSearchEngine") or die(mysqli_error($con));
 
@@ -26,7 +32,7 @@
         $results = array();
         $occurrences = array();
         while($i = mysqli_fetch_array($hello)){
-            array_push($results, '<a href="<?php redirect('.$i['url'].') ?>">'.$i['title'].'</a><p>'. $i['url']. '<p>'. $i['description'].'<p>');
+            array_push($results, '<a href="<?php redirect('.$i['url'].') ?>" style="font-size:20px;">'.$i['title'].'</a><p style="font-size: 12px; color:#008001">'. $i['url']. '<p>'. $i['description'].'<p>');
             array_push($occurrences, $i['activity']);
         }
         $got = quickSort($occurrences, 0, sizeof($results) - 1, $results);
@@ -37,7 +43,7 @@
         for ($n = 0; $n < sizeof($results); $n++){
             echo $results[$n];
 //            echo $occurrences[$n];
-            echo "<p><a>-------------------------------------------------------------------------------------</a><p>";
+            echo "<hr>";
         }
     }
     else {
@@ -147,3 +153,14 @@
         return $sortedArrayActivity;
     }
 ?>
+
+<html>
+    <footer>
+	    <h3>
+			Background information about BSSEARCHER:
+		</h3>
+		<h6>
+			Currently, there are no industry standards for how corporations regulate the development and training of their AI algorithms to limit bias. This leaves the public in danger of being abused by these corporations since they will unknowingly be using these bias algorithms which they blindly trust to provide them with unbiased information. Ideally, the govenment should set industry standards for processes of developing and training AI algorithms to limit inherent bias. To demonstrate this problem with, I have developed simple search engine ("BSSEARCHER") which I have trained to be biased and right-winged in politics to demonstrate how corporations that are unregulated may be able to allow bias into thier services which manipulates their consumers.
+		</h6>
+	</footer>
+</html>
