@@ -32,7 +32,7 @@
         $results = array();
         $occurrences = array();
         while($i = mysqli_fetch_array($hello)){
-            array_push($results, '<a href="<?php redirect('.$i['url'].') ?>" style="font-size:20px;">'.$i['title'].'</a><p style="font-size: 12px; color:#008001">'. $i['url']. '<p>'. $i['description'].'<p>');
+            array_push($results, '<a href="'.$i['url'].'" style="font-size:20px;">'.$i['title'].'</a><p style="font-size: 12px; color:#008001">'. $i['url']. '<p>'. $i['description'].'<p>');
             array_push($occurrences, $i['activity']);
         }
         $got = quickSort($occurrences, 0, sizeof($results) - 1, $results);
